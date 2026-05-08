@@ -218,10 +218,10 @@ C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\Freelanc.A520BB70.Up2Date
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\FreelancePlatform.Web.dll
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\refint\FreelancePlatform.Web.dll
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\FreelancePlatform.Web.pdb
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\FreelancePlatform.Web.genruntimeconfig.cache
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\ref\FreelancePlatform.Web.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Web\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt

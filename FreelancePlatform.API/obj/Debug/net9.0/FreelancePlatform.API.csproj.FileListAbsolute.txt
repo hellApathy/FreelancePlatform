@@ -154,7 +154,6 @@ C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\staticwebassets.build.json.cache
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\staticwebassets.development.json
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\staticwebassets.build.endpoints.json
-C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\Freelanc.DCA91968.Up2Date
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\FreelancePlatform.API.dll
 C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\obj\Debug\net9.0\refint\FreelancePlatform.API.dll
