@@ -6,32 +6,32 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Добавляем поддержку контроллеров (важно для п.8 вашего задания)
+// Подключаем контроллеры
 builder.Services.AddControllers();
 
-// 2. Настройка БД (SQLite для простоты разработки)
+// Настройка БД
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=freelance.db"));
 
-// 3. Настройка IoC (Dependency Injection) - это п.5 вашего задания!
+// Настройка Dependency Injection
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<OrderService>();
 
-// 4. Оставляем OpenAPI для удобного тестирования в браузере
-builder.Services.AddOpenApi();
+// Включаем генерацию Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Настройка HTTP конвейера
+// Включаем визуальный интерфейс SwaggerUI в режиме разработки
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi(); 
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
-
-// Подключаем маршрутизацию к нашим контроллерам
 app.MapControllers();
 
 app.Run();

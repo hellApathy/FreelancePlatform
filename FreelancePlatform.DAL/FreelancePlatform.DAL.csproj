@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FreelancePlatform.Domain\FreelancePlatform.Domain.csproj" />
   </ItemGroup>
 

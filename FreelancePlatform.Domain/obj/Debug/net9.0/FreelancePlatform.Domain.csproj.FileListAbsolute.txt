@@ -1,0 +1,12 @@
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\bin\Debug\net9.0\FreelancePlatform.Domain.deps.json
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\bin\Debug\net9.0\FreelancePlatform.Domain.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\bin\Debug\net9.0\FreelancePlatform.Domain.pdb
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.AssemblyInfoInputs.cache
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.AssemblyInfo.cs
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.csproj.CoreCompileInputs.cache
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.sourcelink.json
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\refint\FreelancePlatform.Domain.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\FreelancePlatform.Domain.pdb
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\obj\Debug\net9.0\ref\FreelancePlatform.Domain.dll
