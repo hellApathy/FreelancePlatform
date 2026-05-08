@@ -1,0 +1,16 @@
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\bin\Debug\net9.0\FreelancePlatform.DAL.deps.json
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\bin\Debug\net9.0\FreelancePlatform.DAL.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\bin\Debug\net9.0\FreelancePlatform.DAL.pdb
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\bin\Debug\net9.0\FreelancePlatform.Domain.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\bin\Debug\net9.0\FreelancePlatform.Domain.pdb
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.csproj.AssemblyReference.cache
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.AssemblyInfoInputs.cache
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.AssemblyInfo.cs
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.csproj.CoreCompileInputs.cache
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.sourcelink.json
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\Freelanc.1C17F781.Up2Date
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\refint\FreelancePlatform.DAL.dll
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\FreelancePlatform.DAL.pdb
+C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\obj\Debug\net9.0\ref\FreelancePlatform.DAL.dll

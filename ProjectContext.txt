@@ -1,0 +1,513 @@
+﻿=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Controllers\HomeController.cs ===
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using FreelancePlatform.Models;
+
+namespace FreelancePlatform.Controllers;
+
+public class HomeController : Controller
+{
+    private readonly ILogger<HomeController> _logger;
+
+    public HomeController(ILogger<HomeController> logger)
+    {
+        _logger = logger;
+    }
+
+    public IActionResult Index()
+    {
+        return View();
+    }
+
+    public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+    }
+}
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Models\ApplicationDbContext.cs ===
+using FreelancePlatform.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace FreelancePlatform.Data
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // РќР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ Р·РІ'СЏР·РєС–РІ РґР»СЏ СѓРЅРёРєРЅРµРЅРЅСЏ РєР°СЃРєР°РґРЅРѕРіРѕ РІРёРґР°Р»РµРЅРЅСЏ
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Client)
+                .WithMany(u => u.PostedOrders)
+                .HasForeignKey(o => o.ClientId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.Freelancer)
+                .WithMany(u => u.CompletedOrders)
+                .HasForeignKey(o => o.FreelancerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Reviewer)
+                .WithMany(u => u.GivenReviews)
+                .HasForeignKey(r => r.ReviewerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Reviewee)
+                .WithMany(u => u.ReceivedReviews)
+                .HasForeignKey(r => r.RevieweeId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Models\ErrorViewModel.cs ===
+namespace FreelancePlatform.Models;
+
+public class ErrorViewModel
+{
+    public string? RequestId { get; set; }
+
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+}
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Models\Order.cs ===
+namespace FreelancePlatform.Models
+{
+    public class Order
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal Budget { get; set; }
+        public string Status { get; set; } // "Open", "InProgress", "Completed"
+
+        // Р—РѕРІРЅС–С€РЅС– РєР»СЋС‡С–
+        public int ClientId { get; set; }
+        public User Client { get; set; }
+
+        public int? FreelancerId { get; set; } // РњРѕР¶Рµ Р±СѓС‚Рё null, РїРѕРєРё РЅС–РєРѕРіРѕ РЅРµ РѕР±СЂР°РЅРѕ
+        public User Freelancer { get; set; }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Models\Review.cs ===
+namespace FreelancePlatform.Models
+{
+    public class Review
+    {
+        public int Id { get; set; }
+        public int Rating { get; set; } // Р’С–Рґ 1 РґРѕ 5
+        public string Comment { get; set; }
+
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
+
+        public int ReviewerId { get; set; }
+        public User Reviewer { get; set; }
+
+        public int RevieweeId { get; set; }
+        public User Reviewee { get; set; }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Models\User.cs ===
+using System.Collections.Generic;
+
+namespace FreelancePlatform.Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; } // "Client" Р°Р±Рѕ "Freelancer"
+        public float Rating { get; set; } = 0.0f;
+
+        // РќР°РІС–РіР°С†С–Р№РЅС– РІР»Р°СЃС‚РёРІРѕСЃС‚С–
+        public ICollection<Order> PostedOrders { get; set; }
+        public ICollection<Order> CompletedOrders { get; set; }
+        public ICollection<Review> GivenReviews { get; set; }
+        public ICollection<Review> ReceivedReviews { get; set; }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\Home\Index.cshtml ===
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\Home\Privacy.cshtml ===
+@{
+    ViewData["Title"] = "Privacy Policy";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\Shared\Error.cshtml ===
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Development Mode</h3>
+<p>
+    Swapping to <strong>Development</strong> environment will display more detailed information about the error that occurred.
+</p>
+<p>
+    <strong>The Development environment shouldn't be enabled for deployed applications.</strong>
+    It can result in displaying sensitive information from exceptions to end users.
+    For local debugging, enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong>
+    and restarting the app.
+</p>
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\Shared\_Layout.cshtml ===
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FreelancePlatform</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/FreelancePlatform.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FreelancePlatform</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - FreelancePlatform - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\Shared\_ValidationScriptsPartial.cshtml ===
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\_ViewImports.cshtml ===
+@using FreelancePlatform
+@using FreelancePlatform.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Views\_ViewStart.cshtml ===
+@{
+    Layout = "_Layout";
+}
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform\Program.cs ===
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Home/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+
+app.Run();
+
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\Controllers\OrdersController.cs ===
+using FreelancePlatform.BLL.Services;
+using FreelancePlatform.Domain.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+
+namespace FreelancePlatform.API.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class OrdersController : ControllerBase
+    {
+        private readonly OrderService _orderService;
+
+        public OrdersController(OrderService orderService)
+        {
+            _orderService = orderService;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Order>> Get() => Ok(_orderService.GetAllOrders());
+
+        [HttpGet("{id}")]
+        public ActionResult<Order> Get(int id)
+        {
+            var order = _orderService.GetOrder(id);
+            if (order == null) return NotFound();
+            return Ok(order);
+        }
+
+        [HttpPost]
+        public ActionResult Post([FromBody] Order order)
+        {
+            _orderService.AddOrder(order);
+            return CreatedAtAction(nameof(Get), new { id = order.Id }, order);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Order order)
+        {
+            if (id != order.Id) return BadRequest();
+            _orderService.UpdateOrder(order);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            _orderService.DeleteOrder(id);
+            return NoContent();
+        }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.API\Program.cs ===
+using FreelancePlatform.DAL;
+using FreelancePlatform.DAL.Repositories;
+using FreelancePlatform.Domain.Interfaces;
+using FreelancePlatform.BLL.Services;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// 1. Р”РѕР±Р°РІР»СЏРµРј РїРѕРґРґРµСЂР¶РєСѓ РєРѕРЅС‚СЂРѕР»Р»РµСЂРѕРІ (РІР°Р¶РЅРѕ РґР»СЏ Рї.8 РІР°С€РµРіРѕ Р·Р°РґР°РЅРёСЏ)
+builder.Services.AddControllers();
+
+// 2. РќР°СЃС‚СЂРѕР№РєР° Р‘Р” (SQLite РґР»СЏ РїСЂРѕСЃС‚РѕС‚С‹ СЂР°Р·СЂР°Р±РѕС‚РєРё)
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite("Data Source=freelance.db"));
+
+// 3. РќР°СЃС‚СЂРѕР№РєР° IoC (Dependency Injection) - СЌС‚Рѕ Рї.5 РІР°С€РµРіРѕ Р·Р°РґР°РЅРёСЏ!
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<OrderService>();
+
+// 4. РћСЃС‚Р°РІР»СЏРµРј OpenAPI РґР»СЏ СѓРґРѕР±РЅРѕРіРѕ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РІ Р±СЂР°СѓР·РµСЂРµ
+builder.Services.AddOpenApi();
+
+var app = builder.Build();
+
+// РќР°СЃС‚СЂРѕР№РєР° HTTP РєРѕРЅРІРµР№РµСЂР°
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi(); 
+}
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+
+// РџРѕРґРєР»СЋС‡Р°РµРј РјР°СЂС€СЂСѓС‚РёР·Р°С†РёСЋ Рє РЅР°С€РёРј РєРѕРЅС‚СЂРѕР»Р»РµСЂР°Рј
+app.MapControllers();
+
+app.Run();
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.BLL\Services\OrderService.cs ===
+using FreelancePlatform.Domain.Entities;
+using FreelancePlatform.Domain.Interfaces;
+using System.Collections.Generic;
+
+namespace FreelancePlatform.BLL.Services
+{
+    public class OrderService
+    {
+        private readonly IOrderRepository _repository;
+
+        // Dependency Injection (IoC) - РјС‹ РЅРµ СЃРѕР·РґР°РµРј СЂРµРїРѕР·РёС‚РѕСЂРёР№ С‚СѓС‚, Р° РїРѕР»СѓС‡Р°РµРј РµРіРѕ
+        public OrderService(IOrderRepository repository)
+        {
+            _repository = repository;
+        }
+
+        public IEnumerable<Order> GetAllOrders() => _repository.GetAll();
+        
+        public Order GetOrder(int id) => _repository.GetById(id);
+        
+        public void AddOrder(Order order)
+        {
+            // Р—РґРµСЃСЊ РјРѕРіР»Р° Р±С‹ Р±С‹С‚СЊ Р±РёР·РЅРµСЃ-Р»РѕРіРёРєР° (РЅР°РїСЂРёРјРµСЂ, РїСЂРѕРІРµСЂРєР° Р±СЋРґР¶РµС‚Р°)
+            _repository.Create(order);
+            _repository.Save();
+        }
+
+        public void UpdateOrder(Order order)
+        {
+            _repository.Update(order);
+            _repository.Save();
+        }
+
+        public void DeleteOrder(int id)
+        {
+            _repository.Delete(id);
+            _repository.Save();
+        }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\Repositories\OrderRepository.cs ===
+using FreelancePlatform.Domain.Entities;
+using FreelancePlatform.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FreelancePlatform.DAL.Repositories
+{
+    public class OrderRepository : IOrderRepository
+    {
+        private readonly ApplicationDbContext _context;
+
+        public OrderRepository(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public IEnumerable<Order> GetAll() => _context.Orders.ToList();
+        
+        public Order GetById(int id) => _context.Orders.Find(id);
+        
+        public void Create(Order order) => _context.Orders.Add(order);
+        
+        public void Update(Order order) => _context.Entry(order).State = EntityState.Modified;
+        
+        public void Delete(int id)
+        {
+            var order = _context.Orders.Find(id);
+            if (order != null) _context.Orders.Remove(order);
+        }
+
+        public void Save() => _context.SaveChanges();
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.DAL\ApplicationDbContext.cs ===
+using FreelancePlatform.Domain.Entities;
+using Microsoft.EntityFrameworkCore; // <-- Вот эта строка обязательна!
+
+namespace FreelancePlatform.DAL
+{
+    public class ApplicationDbContext : DbContext
+    {
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+        public DbSet<Order> Orders { get; set; }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\Entities\Order.cs ===
+namespace FreelancePlatform.Domain.Entities
+{
+    public class Order
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public decimal Budget { get; set; }
+    }
+}
+
+=== C:\Users\lauzz\Desktop\FreelancePlatform\FreelancePlatform.Domain\Interfaces\IOrderRepository.cs ===
+using FreelancePlatform.Domain.Entities;
+using System.Collections.Generic;
+
+namespace FreelancePlatform.Domain.Interfaces
+{
+    public interface IOrderRepository
+    {
+        IEnumerable<Order> GetAll();
+        Order GetById(int id);
+        void Create(Order order);
+        void Update(Order order);
+        void Delete(int id);
+        void Save();
+    }
+}
+
